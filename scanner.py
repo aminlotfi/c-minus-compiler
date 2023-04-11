@@ -71,19 +71,21 @@ def find_num():
     global buffer
     global pointer
     other = symbols + list(string.whitespace)
-    num = buffer[pointer]
-    pointer += 1
-    while buffer[pointer] in string.digits:
-        num += buffer[pointer]
+    try:
+        num = buffer[pointer]
         pointer += 1
-    if buffer[pointer] in other:
-        return num
-    else:
-        num += buffer[pointer]
-        pointer += 1
-        error_handler(num, "Invalid number", line_no)
-        return None
-
+        while pointer < len(buffer) and buffer[pointer] in string.digits:
+            num += buffer[pointer]
+            pointer += 1
+        if pointer < len(buffer) and buffer[pointer] in other:
+            return num
+        else:
+            num += buffer[pointer]
+            pointer += 1
+            error_handler(num, "Invalid number", line_no)
+            return None
+    except IndexError:
+        return buffer
 
 def find_comment(file, start_line):
     global buffer
@@ -143,7 +145,7 @@ def get_next_token(file):
                                     error_handler(buffer[pointer:pointer + 2], "Invalid input", line_no)
                                     pointer += 2
                             elif buffer[pointer] == '/' and buffer[pointer + 1] != '*':
-                                if buffer[pointer + 1] == '/' or buffer[pointer + 1].isspace() or buffer[pointer + 1].isdigit():
+                                if buffer[pointer + 1] == '/' or buffer[pointer + 1].isspace() or buffer[pointer + 1].isdigit() or (buffer[pointer + 1] in symbols):
                                     error_handler(buffer[pointer:pointer + 1], "Invalid input", line_no)
                                     pointer += 1
                                 else:
