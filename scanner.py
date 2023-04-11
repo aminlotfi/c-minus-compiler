@@ -5,7 +5,6 @@ pointer = 0
 line_no = 0
 symbols = "; : , [ ] ( ) { } + - * = < /".split()
 legal = list(string.digits) + list(string.ascii_letters) + list(string.whitespace) + symbols
-# keywords = ["if", "else", "void", "int", "while", "break", "switch", "default", "case", "return", "endif"]
 keywords = ["if", "else", "void", "int", "repeat", "break", "until", "return"]
 id_list = list()
 last_error = 0
@@ -143,6 +142,13 @@ def get_next_token(file):
                                 else:
                                     error_handler(buffer[pointer:pointer + 2], "Invalid input", line_no)
                                     pointer += 2
+                            elif buffer[pointer] == '/' and buffer[pointer + 1] != '*':
+                                if buffer[pointer + 1] == '/' or buffer[pointer + 1].isspace() or buffer[pointer + 1].isdigit():
+                                    error_handler(buffer[pointer:pointer + 1], "Invalid input", line_no)
+                                    pointer += 1
+                                else:
+                                    error_handler(buffer[pointer:pointer + 2], "Invalid input", line_no)
+                                    pointer += 2
                             elif buffer[pointer] == '*':
                                 if buffer[pointer + 1] == '/':
                                     error_handler("*/", "Unmatched comment", line_no)
@@ -164,7 +170,6 @@ def get_next_token(file):
                                         break
                                     continue
                                 elif buffer[pointer + 1] in legal:
-                                    token = ("SYMBOL", '/')
                                     pointer += 1
                                 else:
                                     error_handler(buffer[pointer:pointer + 2], "Invalid input", line_no)
