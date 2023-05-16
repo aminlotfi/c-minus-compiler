@@ -18,7 +18,7 @@ if __name__ == '__main__':
     with open('parse_tree.txt', 'w+', encoding="utf-8") as f:
         for pre, _, node in RenderTree(parser.tree):
             f.write("%s%s\n" % (pre, node.name))
-        f.truncate(f.tell() - 2)
+        f.truncate(f.tell() - 1)
     with open('syntax_errors.txt', 'w+') as f:
         if len(parser.syn_errors) == 0:
             f.write('There is no syntax error.')
