@@ -9,6 +9,8 @@ keywords = ["if", "else", "void", "int", "repeat", "break", "until", "return"]
 id_list = list()
 last_error = 0
 
+def get_line_no():
+    return line_no
 
 def new_line(file, tokens):
     global buffer
