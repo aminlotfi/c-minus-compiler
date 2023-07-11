@@ -9,8 +9,10 @@ keywords = ["if", "else", "void", "int", "repeat", "break", "until", "return"]
 id_list = list()
 last_error = 0
 
+
 def get_line_no():
     return line_no
+
 
 def new_line(file, tokens):
     global buffer
@@ -89,6 +91,7 @@ def find_num():
     except IndexError:
         return buffer
 
+
 def find_comment(file, start_line):
     global buffer
     global pointer
@@ -147,7 +150,8 @@ def get_next_token(file):
                                     error_handler(buffer[pointer:pointer + 2], "Invalid input", line_no)
                                     pointer += 2
                             elif buffer[pointer] == '/' and buffer[pointer + 1] != '*':
-                                if buffer[pointer + 1] == '/' or buffer[pointer + 1].isspace() or buffer[pointer + 1].isdigit() or (buffer[pointer + 1] in symbols):
+                                if buffer[pointer + 1] == '/' or buffer[pointer + 1].isspace() or buffer[
+                                    pointer + 1].isdigit() or (buffer[pointer + 1] in symbols):
                                     error_handler(buffer[pointer:pointer + 1], "Invalid input", line_no)
                                     pointer += 1
                                 else:

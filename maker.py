@@ -11,6 +11,7 @@ class DFA:
     def __init__(self, rules):
         self.rules = rules
 
+
 def make_DFAs(data):
     all_rules = get_rules()
     DFAs = {}
@@ -22,7 +23,7 @@ def make_DFAs(data):
                 if x[0] != '#' and x != 'EPSILON':
                     first_token = x
                     break
-            
+
             if not first_token:
                 for terminal in data['follow'][non_terminal]:
                     rules[terminal] = rule if 'EPSILON' not in rule else []

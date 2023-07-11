@@ -5,6 +5,7 @@ from scanner import get_next_token
 import scanner
 from codegen import CodeGenerator
 
+
 class Parser:
     def __init__(self, f, lines_count):
         self.lines_count = lines_count
@@ -29,7 +30,7 @@ class Parser:
                 self.process_token()
                 continue
             self.pass_dfa(state)
-    
+
     def process_token(self):
         token = get_next_token(self.f)
         if token == '$':
